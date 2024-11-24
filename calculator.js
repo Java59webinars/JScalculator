@@ -1,62 +1,47 @@
 const calculator = (a,b,operationCallback)=>{
     return operationCallback(a,b);
 }
-const add = (a,b) => a+b;
-const multiply = (a,b) => a*b;
-const divide = (a,b) => (b !== 0 ? a/b: "Division by zero is not allowed");
-const subtract = (a,b) => a-b;
-
+const operations = {
+    "+" : (a,b) => a+b,
+    "-" :(a,b) => a-b,
+    "*" :(a,b) => a*b,
+    "/" :(a,b) => (b !== 0 ? a/b: "Division by zero is not allowed")
+}
 //Function to get operands from the user
 const  getNumber = (message) =>{
     let num;
-    do {
+    while (getNumber.status !== null && (isNaN(num) || num.trim() === "")) {
         num = prompt(message);
-    } while (isNaN(num) || num === null || num.trim() === "");
+        getNumber.status = num;
+        }
     return parseFloat(num);
 }
 
 //Function to get operation from the user
 const getOperation = () =>{
     let operation;
-    const validOperations =["+", "-", "*", "/"];
+   // const validOperations =["+", "-", "*", "/", null];
     do {
-        operation = prompt("Choose an operation: + (add) - (subst) * (multi) / (division):");
-        if (!isInArray(validOperations, operation)) {
+        operation = prompt("Choose an operation: + (add) - (subst) * (multi) / (division) or Cancel:");
+        if (operation === null){
+            return operation;
+        }
+        if (!(operation in operations)) {
             alert(`Invalid operation ${operation}`);
         }
-    }while (!isInArray(validOperations, operation));
+    }while (!(operation in operations));
     return operation;
 }
 
-//Is operation valid?
-const isInArray = (array, value) => {
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] === value) {
-            return true
-        }
-    } return false;
-};
 
 //Main function
 const runCalculator = () => {
+    getNumber.status = undefined;
     const num1 = getNumber("Enter the first number");
     const num2 = getNumber("Enter the second number");
-    const operation = getOperation();
-    let result;
-    switch (operation) {
-        case "+":
-            result = calculator(num1, num2,add);
-            break;
-        case "-":
-            result = calculator(num1, num2,subtract);
-            break;
-        case "*":
-            result = calculator(num1, num2,multiply);
-            break;
-        case "/":
-            result = calculator(num1, num2,divide);
-            break;
-    }
+    const operation = getNumber.status === null? null : getOperation();
+    const result = operation !== null? calculator(num1, num2, operations[operation]) :" The operation was cancelled.";
+
     alert(`The result is: ${result}`);
     if(confirm("Do you want to perform another operation?")){
         runCalculator();//Recursively start again
