@@ -7,7 +7,7 @@ function displayResultsOnPage(results){
     const headerRow = document.createElement("tr");
 
     //Create table headers
-    const headers = ["#", "Operand A", "Operand B", "Operation", "Result"];
+    const headers = ["#", "Operand A", "Operand B", "Operation", "Result", "Actions"];
     for(i=0; i < headers.length; i++){
         const th = document.createElement("th");
         th.textContent = headers[i];
@@ -18,7 +18,7 @@ function displayResultsOnPage(results){
     table.appendChild(headerRow);
 
     //Populate the table
-    for(i=0; i < results.length; i++){
+    for(let i=0; i < results.length; i++){
         const row = document.createElement("tr");
         const cells = [
             i + 1,
@@ -27,15 +27,25 @@ function displayResultsOnPage(results){
             results[i].operation,
             results[i].result
         ];
-
-        for(j = 0; j < cells.length; j++){
+    //
+        for(let j = 0; j < cells.length; j++){
             const td = document.createElement("td");
             td.textContent = cells[j];
             row.appendChild(td);
         }
-
+//Add delete button
+        const actionTd = document.createElement("td");
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", () => deleteCalculation(i));
+        actionTd.appendChild(deleteButton);
+        row.appendChild(actionTd);
         table.appendChild(row);
     }
     //Clear the container AND add table
     resultsContainer.replaceChildren(table);
+}
+function deleteCalculation(index) {
+    results.splice(index, 1);
+    displayResultsOnPage(results);
 }
