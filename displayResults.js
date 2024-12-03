@@ -2,13 +2,17 @@ function displayResultsOnPage(results){
     //Get the container where the table will be added
     const resultsContainer = document.getElementById("results");
 
+    if (results.length === 0) {
+        resultsContainer.textContent = "No results to display.";
+        return;
+    }
     //Create the table
     const table = document.createElement("table");
     const headerRow = document.createElement("tr");
 
     //Create table headers
     const headers = ["#", "Operand A", "Operand B", "Operation", "Result", "Actions"];
-    for(i=0; i < headers.length; i++){
+    for(let i=0; i < headers.length; i++){
         const th = document.createElement("th");
         th.textContent = headers[i];
         headerRow.appendChild(th);
@@ -37,7 +41,7 @@ function displayResultsOnPage(results){
         const actionTd = document.createElement("td");
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
-        deleteButton.addEventListener("click", () => deleteCalculation(i));
+        deleteButton.addEventListener("click", () => deleteCalculation(i, results));
         actionTd.appendChild(deleteButton);
         row.appendChild(actionTd);
         table.appendChild(row);
@@ -45,7 +49,8 @@ function displayResultsOnPage(results){
     //Clear the container AND add table
     resultsContainer.replaceChildren(table);
 }
-function deleteCalculation(index) {
+
+function deleteCalculation(index, results) {
     results.splice(index, 1);
     displayResultsOnPage(results);
 }
