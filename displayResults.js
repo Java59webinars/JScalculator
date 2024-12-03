@@ -6,20 +6,11 @@ function displayResultsOnPage(results){
         resultsContainer.textContent = "No results to display.";
         return;
     }
+
     //Create the table
     const table = document.createElement("table");
-    const headerRow = document.createElement("tr");
+    createTableHeaders(results, table);
 
-    //Create table headers
-    const headers = ["#", "Operand A", "Operand B", "Operation", "Result", "Actions"];
-    for(let i=0; i < headers.length; i++){
-        const th = document.createElement("th");
-        th.textContent = headers[i];
-        headerRow.appendChild(th);
-    }
-
-    //Add the header to the table
-    table.appendChild(headerRow);
 
     //Populate the table
     for(let i=0; i < results.length; i++){
@@ -48,6 +39,23 @@ function displayResultsOnPage(results){
     }
     //Clear the container AND add table
     resultsContainer.replaceChildren(table);
+}
+
+function createTableHeaders(results, table) {
+    const headerRow = document.createElement("tr");
+    //Create table headers from results [0]
+    const headers = Object.keys(results[0]).concat(["Actions"]);
+    headers.unshift("#");
+    //const headers = ["#"].concat(Object.keys(results[0]), ["Actions"]);
+
+    headers.forEach(header => {
+        const th = document.createElement("th");
+        th.textContent = header;
+        headerRow.appendChild(th);
+    });
+
+    //Add the header to the table
+    table.appendChild(headerRow);
 }
 
 function deleteCalculation(index, results) {
