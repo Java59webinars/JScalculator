@@ -61,9 +61,13 @@ const runCalculator = () => {
     if(confirm("Do you want to perform another operation?")){
         runCalculator();//Recursively start again
     }else{
-        alert(`Thank you for using calculator`);
+    //    alert(`Thank you for using calculator`);
         displayResultsOnPage(results);
     }
+
+
+
+
 };
 function isUnique(results, num1, num2, operation) {
     for (let i = 0; i < results.length; i++) {
@@ -74,5 +78,24 @@ function isUnique(results, num1, num2, operation) {
     }
     return true; // unique
 }
+
+//NOT OPTIMAL
+// function isUnique(results, num1, num2, operation) {
+//     const duplicates = results.filter(
+//         (item) => item.a === num1 && item.b === num2 && item.operation === operation
+//     );
+//     return duplicates.length === 0; // Если нет совпадений, операция уникальна
+// }
+//NOT OPTIMAL 2
+// function isUnique(results, num1, num2, operation) {
+//     let isUnique = true;
+//     results.forEach((item) => {
+//         if (item.a === num1 && item.b === num2 && item.operation === operation) {
+//             isUnique = false; // Найден дубликат
+//         }
+//     });
+//     return isUnique;
+// }
+
 runCalculator();
 

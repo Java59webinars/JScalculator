@@ -1,3 +1,5 @@
+
+
 function displayResultsOnPage(results){
     //Get the container where the table will be added
     const resultsContainer = document.getElementById("results");
@@ -21,6 +23,7 @@ function displayResultsOnPage(results){
     });
     //Clear the container AND add table
     resultsContainer.replaceChildren(table);
+    resultsContainer.appendChild(addButtonsBlock());
 }
 
 //Create table headers dynamically based on the first object in the array
@@ -68,4 +71,31 @@ function deleteRowAndElementfromResults(results, index) {
         results.splice(index, 1); // Remove the item from the array
         displayResultsOnPage(results); // Re-render the table
     };
+}
+
+function addButtonsBlock() {
+    const calculatorContainer = document.createElement("div");
+    const addButton = document.createElement("button");
+    addButton.id = "add-calculation";
+    addButton.textContent = "Add Calculation";
+
+    const cancelButton = document.createElement("button");
+    cancelButton.id = "cancel";
+    cancelButton.textContent = "Cancel";
+
+    calculatorContainer.appendChild(addButton);
+    calculatorContainer.appendChild(cancelButton);
+
+    addButton.addEventListener("click", () => {
+        runCalculator();
+    });
+
+    cancelButton.addEventListener("click", () => {
+        alert("Thank you for using the calculator!");
+        const resultsContainer = document.getElementById("results");
+        resultsContainer.replaceChildren("<p>Goodbye!</p>")  ;
+    });
+
+
+    return calculatorContainer;
 }
