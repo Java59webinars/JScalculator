@@ -1,5 +1,3 @@
-
-
 function displayResultsOnPage(results){
     //Get the container where the table will be added
     const resultsContainer = document.getElementById("results");
