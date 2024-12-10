@@ -11,23 +11,21 @@ const operations = {
 //Function to get operands from the user
 const  getNumber = (message) =>{
     let num;
-    // while (getNumber.status !== null && (isNaN(num) || num.trim() === "")) {
-    //     num = prompt(message);
-    //     getNumber.status = num;
-    //     }
-    // return parseFloat(num);
+    const cancelInputMessage =  "Input cancelled by the user."
+    const invalidInput = "Invalid input. Please enter a valid number."
     while (true) { // *** Start of loop with try-catch
         try {
             num = prompt(message);
             if (num === null) {
-                throw new Error("Input cancelled by the user."); //added e.message
+                throw new Error(cancelInputMessage); //added e.message
             }
             if (isNaN(num) || num.trim() === "") {
-                throw new Error("Invalid input. Please enter a valid number."); //added e.message
+                throw new Error(invalidInput); //added e.message
             }
             return parseFloat(num); // Return the parsed number
         } catch (error) {
             alert(error.message); // Notify the user of the error
+            if (error.message === cancelInputMessage) return null;
         }
     }
 }
@@ -36,17 +34,24 @@ const  getNumber = (message) =>{
 const getOperation = () =>{
     let operation;
    // const validOperations =["+", "-", "*", "/", null];
-    do {
-        operation = prompt("Choose an operation: + (add) - (subst) * (multi) / (division) or Cancel to exit:");
-        if (operation === null){
-            return operation;
-        }
-        if (!(operation in operations)) {
-            alert(`Invalid operation ${operation}`);
-        }
-    }while (!(operation in operations));
-    return operation;
-}
+    const cancelInputMessage =  "Input cancelled by the user.";
+        while (true) { // *** Start of loop with try-catch ***
+            try {
+                operation = prompt("Choose an operation: + (add), - (subtract), * (multiply), / (divide) or Cancel to exit:");
+                if (operation === null) {
+                    throw new Error(cancelInputMessage); //added  e.message
+                }
+                if (!(operation in operations)) {
+                    throw new Error(`Invalid operation: ${operation}. Please choose one of: +, -, *, /.`); //added  e.message
+                }
+                return operation; // Return the valid operation
+            } catch (error) {
+                alert(error.message); // Notify the user of the error
+                if (error.message === cancelInputMessage) return null;
+            }
+
+    }
+    };
 
 //Main function
 const runCalculator = () => {
