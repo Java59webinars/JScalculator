@@ -93,7 +93,7 @@ function addButtonsBlock() {
     cancelButton.addEventListener("click", () => {
         alert("Thank you for using the calculator!");
         const resultsContainer = document.getElementById("results");
-        resultsContainer.replaceChildren("<p>Goodbye!</p>")  ;
+        resultsContainer.replaceChildren("Goodbye!")  ;
     });
 
 

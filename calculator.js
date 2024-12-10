@@ -11,11 +11,25 @@ const operations = {
 //Function to get operands from the user
 const  getNumber = (message) =>{
     let num;
-    while (getNumber.status !== null && (isNaN(num) || num.trim() === "")) {
-        num = prompt(message);
-        getNumber.status = num;
+    // while (getNumber.status !== null && (isNaN(num) || num.trim() === "")) {
+    //     num = prompt(message);
+    //     getNumber.status = num;
+    //     }
+    // return parseFloat(num);
+    while (true) { // *** Start of loop with try-catch
+        try {
+            num = prompt(message);
+            if (num === null) {
+                throw new Error("Input cancelled by the user."); //added e.message
+            }
+            if (isNaN(num) || num.trim() === "") {
+                throw new Error("Invalid input. Please enter a valid number."); //added e.message
+            }
+            return parseFloat(num); // Return the parsed number
+        } catch (error) {
+            alert(error.message); // Notify the user of the error
         }
-    return parseFloat(num);
+    }
 }
 
 //Function to get operation from the user
