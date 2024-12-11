@@ -25,9 +25,7 @@ const  getNumber = (message, cancelInputMessage) =>{
 
 //Function to get operation from the user
 const getOperation = (cancelInputMessage) =>{
-    //let operation;
-   // const validOperations =["+", "-", "*", "/", null];
-    while (true) {
+     while (true) {
       const operation = prompt("Choose an operation: + (add), - (subtract), * (multiply), / (divide) or Cancel to exit:");
         if (operation === null) {
             throw new Error(cancelInputMessage); // Let the error propagate
