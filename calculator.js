@@ -1,6 +1,32 @@
-const calculator = (a,b,operationCallback)=>{
-    return operationCallback(a,b);
+class Calculate {
+   // #result;
+    constructor(a, b, operationCallback) {
+        this.a = a;
+        this.b = b;
+        this.operation = operationCallback;
+    //    this.#result =  operationCallback(a, b);
+        this.result =  operationCallback(a, b);
+    }
+    static getHeaders() {
+        return ["Operand A", "Operand B", "Operation", "Result"];
+    }
+    // ADDED: Method to check equality
+    equals(other) {
+        return (
+            other instanceof Calculate &&
+            this.a === other.a &&
+            this.b === other.b &&
+            this.operation === other.operation
+        );
+    }
+    // get result() {
+    //         return this.#result;
+    //     }
+
 }
+// const calculator = (a,b,operationCallback)=>{
+//     return operationCallback(a,b);
+// }
 const results = [];
 const operations = {
     "+" :(a,b) => a+b,
@@ -33,7 +59,7 @@ const getOperation = (cancelInputMessage) =>{
         if (!(operation in operations)) {
             alert(`Invalid operation: ${operation}. Please choose one of: +, -, *, /.`);
         } else {
-            return operation; // Return the valid operation
+            return operations[operation];
         }
     }
 };
@@ -44,19 +70,14 @@ const runCalculator = () => {
     try { // Centralized try-catch block
         const num1 = getNumber("Enter the first number", cancelInputMessage);
         const num2 = getNumber("Enter the second number", cancelInputMessage);
-        const operation = getOperation(cancelInputMessage);
-        const result = calculator(num1, num2, operations[operation]);
-        if (isUnique(results, num1, num2, operations[operation])) {
-            results.push({
-                a: num1,
-                b: num2,
-                operation: operations[operation],
-                result: result
-            });
-        } else {
+        const operationCallback = getOperation(cancelInputMessage);
+        const calculation = new Calculate(num1, num2, operationCallback);
+        if (isUnique(results, calculation)) {
+            results.push(calculation);
+        }  else {
             alert("This calculation already exists in the history.");
         }
-        alert(`The result is: ${result}`);
+        alert(`The result is: ${calculation.result}`);
     } catch (error) {
         if (error.message === cancelInputMessage) {
             alert(error.message); // Graceful handling of cancellation
@@ -67,18 +88,13 @@ const runCalculator = () => {
     if (confirm("Do you want to perform another operation?")) {
         runCalculator(); // Recursively start again
     } else {
-        displayResultsOnPage(results);
+        displayResultsOnPage(results, Calculate.getHeaders());
     }
 };
 
-function isUnique(results, num1, num2, operation) {
-    for (let i = 0; i < results.length; i++) {
-        const item = results[i];
-        if (item.a === num1 && item.b === num2 && item.operation === operation) {
-            return false; // not unique
-        }
-    }
-    return true; // unique
+function isUnique(results,calc) {
+   return !results.some(c => c.equals(calc)); // CHANGED: Используем метод equals
 }
+
 runCalculator();
 

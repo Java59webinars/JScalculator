@@ -1,7 +1,6 @@
-function displayResultsOnPage(results){
+function displayResultsOnPage(results, headersToShow){
     //Get the container where the table will be added
     const resultsContainer = document.getElementById("results");
-
     if (results.length === 0) {
         resultsContainer.textContent = "No results to display.";
         return;
@@ -9,7 +8,7 @@ function displayResultsOnPage(results){
 
     //Create the table
     const table = document.createElement("table");
-    createTableHeaders(results, table);
+    createTableHeaders(results, table, headersToShow);
 
     //Populate the table
     results.forEach((result, index) => {
@@ -25,12 +24,9 @@ function displayResultsOnPage(results){
 }
 
 //Create table headers dynamically based on the first object in the array
-function createTableHeaders(results, table) {
+function createTableHeaders(results, table, headersToShow) {
     const headerRow = document.createElement("tr");
-    const headers = Object.keys(results[0]).concat(["Actions"]);
-    headers.unshift("#");
-    //const headers = ["#"].concat(Object.keys(results[0]), ["Actions"]);
-
+    const headers = ["#"].concat(headersToShow, ["Actions"]);
     headers.forEach(header => {
         const th = document.createElement("th");
         th.textContent = header;
@@ -47,11 +43,16 @@ function rowNumerator(index, row) {
 }
 //Populate data from result to cells
 function cellsPopulator(result, row) {
-    Object.values(result).forEach(value => {
+//  result.result = 5;
+    const values = Object.values(result); // Динамически извлекаем значения всех полей
+//  values.push(result.result);
+    console.log(values);
+    values.forEach(value => {
         const td = document.createElement("td");
-        td.textContent = value;
+        td.textContent = value+'';
         row.appendChild(td);
     });
+
 }
 
 //Add delete button
