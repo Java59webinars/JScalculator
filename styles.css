@@ -1,0 +1,67 @@
+/* General style for table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+
+/* Headers */
+th {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+/* row style */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+/* inside buttons */
+button {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* outside container */
+#results div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+/* Outside buttons "Add Calculation" и "Cancel" */
+#add-calculation, #cancel {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#cancel {
+    background-color: #dc3545;
+}
+
+#add-calculation:hover {
+    background-color: #218838;
+}
+
+#cancel:hover {
+    background-color: #c82333;
+}
