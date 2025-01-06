@@ -26,6 +26,7 @@ td {
 /* inside buttons */
 button {
     padding: 6px 12px;
+    margin: 9px;
     background-color: #007bff;
     color: white;
     border: none;
