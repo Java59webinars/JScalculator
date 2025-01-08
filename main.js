@@ -1,5 +1,7 @@
 import {Calculator}  from "./modules/calculator.js";
 import {createButtons} from "./modules/buttons.js";
+import { TABLE_HEADER } from './modules/constants.js';
+import { createTable} from './modules/table.js';
 
 const calculator = new Calculator();
 const calculationsSet = new Set(); //Set of results of calculations
@@ -11,5 +13,5 @@ let pendingOperation = null;
 document.addEventListener("DOMContentLoaded", () => {
     console.log(calculator.getActions());
     createButtons('button-container', calculator.getActions(), null)
-
+    createTable('output-container', TABLE_HEADER);
 })

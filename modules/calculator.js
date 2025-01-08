@@ -7,7 +7,7 @@ export  class Calculator {
                 { label: '*', operation: 'multiply' },
                 { label: '/', operation: 'divide' },
                 { label: '=', operation: 'calculate' },  // Кнопка = добавлена
-                { label: 'C', operation: 'reset' }
+                { label: 'C', operation: 'reset', className:'cancel' }
             ];
     }
 
