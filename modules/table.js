@@ -30,6 +30,7 @@ export function createTable(containerId, header) {
 export function clearTable() {
     const table = document.getElementById('results-table');
     const newTbody = document.createElement('tbody');
+    console.log("clearTable");
     table.replaceChild(newTbody, table.querySelector('tbody'));
 }
 
@@ -46,7 +47,8 @@ export function updateTable(rowItems) {
         return;
     }
     const row = createRow(rowItems);
-    table.appendChild(row);
+    const tbody = table.querySelector('tbody');
+    tbody.appendChild(row);
 }
 
 function createRow(items, cellType = 'td') {

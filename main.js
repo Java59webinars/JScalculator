@@ -40,7 +40,8 @@ function processOperation(operation) {
         executeOperation();
     }
     pendingOperation = operation;
-    currentValue = parseInput(getInputValue) || currentValue;
+    console.log("pendingOperation", operation);
+    currentValue = parseInput(getInputValue()) || currentValue;
 }
 
 /**
@@ -48,16 +49,19 @@ function processOperation(operation) {
  * @param {string} operation - name of operation
  */
 function handleOperation(operation) {
-    if (operation=== 'calculate'){
+    console.log("handleOperation", operation);
+    if (operation === 'calculate'){
         executeOperation();
-    } else if (operation==='reset') {
+    } else if (operation === 'reset') {
         calculator.reset();
         currentValue = 0;
         pendingOperation = null;
+        updateDisplay(0);
         clearTable();
         clearInput();
         calculationsSet.clear();
     } else {
+        console.log("operation", operation);
         processOperation(operation);
     }
 }
