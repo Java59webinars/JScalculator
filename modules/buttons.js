@@ -6,7 +6,7 @@ export function createButtons(containerId, buttonData, onButtonClick) {
         if(button.className){
             buttonElement.classList.add(button.className);
         }
-        // buttonElement.addEventListener("click", onButtonClick(button.operation));
+        buttonElement.addEventListener("click",()=> onButtonClick(button.operation));
         container.appendChild(buttonElement);
     })
 }

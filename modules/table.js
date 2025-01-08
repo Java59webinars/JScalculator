@@ -27,6 +27,28 @@ export function createTable(containerId, header) {
     container.appendChild(table);
 }
 
+export function clearTable() {
+    const table = document.getElementById('results-table');
+    const newTbody = document.createElement('tbody');
+    table.replaceChild(newTbody, table.querySelector('tbody'));
+}
+
+export function updateTable(rowItems) {
+    const table = document.getElementById('results-table');
+    if (!table) {
+        console.log('Table not found');
+        return;
+    }
+    const thead = table.querySelector('thead');
+    const headerCount = thead.querySelectorAll('th').length;
+    if (rowItems.length !== headerCount) {
+        console.log('Row items does not match table header.');
+        return;
+    }
+    const row = createRow(rowItems);
+    table.appendChild(row);
+}
+
 function createRow(items, cellType = 'td') {
     const row = document.createElement('tr');
     items.forEach(item => {
